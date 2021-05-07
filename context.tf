@@ -47,12 +47,19 @@ variable "context" {
   EOT
 
   validation {
-    condition     = lookup(var.context, "label_key_case", null) == null ? true : contains(["lower", "title", "upper"], var.context["label_key_case"])
+    condition = lookup(var.context, "label_key_case", null) == null ? true : contains([
+      "lower",
+      "title",
+    "upper"], var.context["label_key_case"])
     error_message = "Allowed values: `lower`, `title`, `upper`."
   }
 
   validation {
-    condition     = lookup(var.context, "label_value_case", null) == null ? true : contains(["lower", "title", "upper", "none"], var.context["label_value_case"])
+    condition = lookup(var.context, "label_value_case", null) == null ? true : contains([
+      "lower",
+      "title",
+      "upper",
+    "none"], var.context["label_value_case"])
     error_message = "Allowed values: `lower`, `title`, `upper`, `none`."
   }
 }
@@ -72,13 +79,13 @@ variable "project" {
 variable "environment" {
   type        = string
   default     = null
-  description = "Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'"
+  description = "Environment, e.g. 'uw2', 'us-west-2', or 'prod', 'staging', 'dev', 'UAT'"
 }
 
 variable "family" {
   type        = string
   default     = null
-  description = "Family, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'"
+  description = "Family, which groups your apps into business domains, e.g. 'monitoring' or 'payment'"
 }
 
 variable "application" {
@@ -158,7 +165,10 @@ variable "label_key_case" {
   EOT
 
   validation {
-    condition     = var.label_key_case == null ? true : contains(["lower", "title", "upper"], var.label_key_case)
+    condition = var.label_key_case == null ? true : contains([
+      "lower",
+      "title",
+    "upper"], var.label_key_case)
     error_message = "Allowed values: `lower`, `title`, `upper`."
   }
 }
@@ -173,7 +183,11 @@ variable "label_value_case" {
   EOT
 
   validation {
-    condition     = var.label_value_case == null ? true : contains(["lower", "title", "upper", "none"], var.label_value_case)
+    condition = var.label_value_case == null ? true : contains([
+      "lower",
+      "title",
+      "upper",
+    "none"], var.label_value_case)
     error_message = "Allowed values: `lower`, `title`, `upper`, `none`."
   }
 }

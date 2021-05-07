@@ -1,0 +1,22 @@
+name: tfdoc
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  tfdoc:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@master
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Generate TF Docs
+        uses: terraform-docs/gh-actions@v0
+        with:
+          output-file: README.md
+          git-push: true

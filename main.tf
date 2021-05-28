@@ -10,8 +10,8 @@ module "short_label" {
 resource "aws_cloudwatch_metric_alarm" "average-resource-cpu" {
   count               = module.this.enabled ? 1 : 0
   alarm_name          = "${module.this.family}-${module.this.application}-average-cpu-high"
-  namespace           = "AWS/ECS"
-  metric_name         = "CPUUtilization"
+  namespace           = "ECS/ContainerInsights"
+  metric_name         = "CpuUtilized"
   statistic           = "Average"
   treat_missing_data  = var.treat_missing_data
   comparison_operator = "GreaterThanThreshold"
@@ -21,14 +21,14 @@ resource "aws_cloudwatch_metric_alarm" "average-resource-cpu" {
   datapoints_to_alarm = var.average_resource_datapoints_to_alarm
 
   dimensions = {
-    ClusterName = module.short_label.id
-    ServiceName = module.this.application
+    ClusterName          = module.short_label.id
+    TaskDefinitionFamily = module.this.id
   }
 
   alarm_actions = [
-  "arn:aws:sns:eu-central-1:164105964448:${module.short_label.id}-alarm"]
-  ok_actions = [
-  "arn:aws:sns:eu-central-1:164105964448:${module.short_label.id}-alarm"]
+    "arn:aws:sns:eu-central-1:164105964448:${module.short_label.id}-info"]
+  ok_actions    = [
+    "arn:aws:sns:eu-central-1:164105964448:${module.short_label.id}-info"]
 
   tags = module.this.tags
 }
@@ -36,8 +36,8 @@ resource "aws_cloudwatch_metric_alarm" "average-resource-cpu" {
 resource "aws_cloudwatch_metric_alarm" "average-resource-memory" {
   count               = module.this.enabled ? 1 : 0
   alarm_name          = "${module.this.family}-${module.this.application}-average-memory-high"
-  namespace           = "AWS/ECS"
-  metric_name         = "MemoryUtilization"
+  namespace           = "ECS/ContainerInsights"
+  metric_name         = "MemoryUtilized"
   statistic           = "Average"
   treat_missing_data  = var.treat_missing_data
   comparison_operator = "GreaterThanThreshold"
@@ -47,14 +47,14 @@ resource "aws_cloudwatch_metric_alarm" "average-resource-memory" {
   datapoints_to_alarm = var.average_resource_datapoints_to_alarm
 
   dimensions = {
-    ClusterName = module.short_label.id
-    ServiceName = module.this.application
+    ClusterName          = module.short_label.id
+    TaskDefinitionFamily = module.this.id
   }
 
   alarm_actions = [
-  "arn:aws:sns:eu-central-1:164105964448:${module.short_label.id}-alarm"]
-  ok_actions = [
-  "arn:aws:sns:eu-central-1:164105964448:${module.short_label.id}-alarm"]
+    "arn:aws:sns:eu-central-1:164105964448:${module.short_label.id}-info"]
+  ok_actions    = [
+    "arn:aws:sns:eu-central-1:164105964448:${module.short_label.id}-info"]
 
   tags = module.this.tags
 }
@@ -78,9 +78,9 @@ resource "aws_cloudwatch_metric_alarm" "maximum-resource-cpu" {
   }
 
   alarm_actions = [
-  "arn:aws:sns:eu-central-1:164105964448:${module.short_label.id}-info"]
-  ok_actions = [
-  "arn:aws:sns:eu-central-1:164105964448:${module.short_label.id}-info"]
+    "arn:aws:sns:eu-central-1:164105964448:${module.short_label.id}-info"]
+  ok_actions    = [
+    "arn:aws:sns:eu-central-1:164105964448:${module.short_label.id}-info"]
 
   tags = module.this.tags
 }
@@ -104,9 +104,9 @@ resource "aws_cloudwatch_metric_alarm" "maximum-resource-memory" {
   }
 
   alarm_actions = [
-  "arn:aws:sns:eu-central-1:164105964448:${module.short_label.id}-info"]
-  ok_actions = [
-  "arn:aws:sns:eu-central-1:164105964448:${module.short_label.id}-info"]
+    "arn:aws:sns:eu-central-1:164105964448:${module.short_label.id}-info"]
+  ok_actions    = [
+    "arn:aws:sns:eu-central-1:164105964448:${module.short_label.id}-info"]
 
   tags = module.this.tags
 }

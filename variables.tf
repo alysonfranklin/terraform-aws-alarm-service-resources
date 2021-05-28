@@ -24,13 +24,13 @@ variable "average_resource_period" {
 
 variable "average_resource_cpu_threshold" {
   type        = number
-  default     = 95
+  default     = 100
   description = "Average of cpu utilization to not be exceeded. Consider keeping some headroom."
 }
 
 variable "average_resource_memory_threshold" {
   type        = number
-  default     = 95
+  default     = 100
   description = "Average of memory utilization to not be exceeded. Consider keeping some headroom."
 }
 
